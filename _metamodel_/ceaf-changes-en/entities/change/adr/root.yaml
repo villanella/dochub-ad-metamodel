@@ -1,4 +1,0 @@
-imports:
-  - base.yaml
-  - blank.yaml
-  #  - list.yaml # убираем, чтоб избежать дублирования атрибутов

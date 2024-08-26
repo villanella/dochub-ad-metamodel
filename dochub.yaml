@@ -14,6 +14,6 @@ $package:
     dependencies:
       ceaf-changes-en: ">=1.0.0"
 imports:
-  - _metamodel_\packages.yaml
+  #- _metamodel_\packages.yaml
   - entities/root.yaml
   - tests.yaml

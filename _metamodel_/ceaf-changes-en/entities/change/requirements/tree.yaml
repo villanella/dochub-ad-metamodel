@@ -1,6 +1,0 @@
-# Представление дерева требований SEAF
-entities:
-  seaf.change.requirements:
-    presentations:
-      tree:
-        template: templates/tree-en.puml
