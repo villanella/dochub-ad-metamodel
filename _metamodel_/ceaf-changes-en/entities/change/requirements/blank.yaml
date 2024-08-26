@@ -1,0 +1,6 @@
+# Бланк требования
+entities:
+  seaf.change.requirements:
+    presentations:
+      blank:
+        template: templates/blank-en.md

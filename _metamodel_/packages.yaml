@@ -1,0 +1,6 @@
+#This file is generated automatically by the utility https://www.npmjs.com/package/archpkg.
+#It is not recommended to make changes to it.
+
+imports:
+  - ceaf-changes\dochub.yaml
+  - ceaf-changes-en\dochub.yaml

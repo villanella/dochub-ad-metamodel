@@ -1,0 +1,45 @@
+## Tests
+
+seaf.change.requirements:
+  adh.security.kerberos.req1:
+    title: Test Krb Req
+    description: System **shall** to do something.
+    type: business
+    verifications:
+      manual_test:
+        title: Manual test
+        condition: It works!
+    functionality:
+      - adh.security
+
+
+seaf.change.adr:
+  test:
+    title: Test ADR 1
+  test.adr:
+    title: Test ADR
+    moment: 2024-08-22
+    decision: Need KRB
+
+aspects:
+  adh:
+    location: ADH
+    title: ADH
+
+  adh.security:
+    title: Security
+    location: ADH/Security
+
+components:
+  adh:
+    title: ADH Hadoop
+    entity: collections
+    aspects:
+      - adh.security
+
+contexts:
+  adh:
+    title: ADH Architecture
+    location: ADH
+    components:
+      - adh

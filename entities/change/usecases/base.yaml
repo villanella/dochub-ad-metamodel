@@ -1,0 +1,54 @@
+entities:
+  seaf.change.uc:
+    title: Use cases
+    objects:
+      uc:
+        route: "/"
+        title: Use case
+    schema:
+      type: object
+      patternProperties:
+        "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+          type: object
+          properties:
+            title:
+              title: Название юз-кейса
+              type: string
+            priority:
+              type: string
+              enum:
+                - High
+                - Medium
+                - Low
+            story:
+              title: Story
+              type: string
+            needatest:
+              title: Need autotest
+              type: boolean
+            description:
+              title: Main flow
+              type: string
+
+          required:
+            - title
+            - description
+            - story
+    menu: >
+      (
+        $append(
+          [{
+            "link": "/entities/seaf.change.uc/tree", 
+            "location": "Changes/Use Cases" 
+          }],
+          $seaf_menu_location_by_id(
+              $."seaf.change.uc",
+              "",
+              "Changes/Use Cases/",
+              function($location, $item, $itemId, $collection){{
+                  "location": $location,
+                  "link": "/entities/seaf.change.uc/blank?seaf-uc-id=" & $itemId
+              }}
+          )
+        );
+      )

@@ -1,0 +1,37 @@
+# Представление дерева юз-кейсов
+entities:
+  seaf.change.uc:
+    presentations:
+      tree:
+        title: Use cases
+        type: plantuml
+        template: templates/tree.puml
+        source: >
+          (
+            $usecases := $."seaf.change.uc";
+            $merge((
+                [$usecases.$spread().(
+                    $keys()[0]~>$split(".")~>$map(function($v, $limit, $struct) {
+                        {
+                        $struct~>$map(function($pice, $index) {
+                            $index <= $limit ? $pice
+                        })~>$join("."): true
+                        }
+                    })
+                )]
+              )
+            ).$spread().(
+              /* Готовим массив для вывода */
+              $id := $keys()[0];
+              $usecase := $lookup($usecases, $id);
+              {
+                "id": $id,
+                "title": $usecase.title ? $usecase.title : $id,
+                "link": "/entities/seaf.change.uc/blank?seaf-uc-id=" & $id
+              }            
+            )^(id).(
+              /* Готовим PlantUML код для MindMap */
+              $content := " [[" & link & " " & title & "]]";
+              "*" & $join($split(id, ".").("*")) & $content
+            )~>$join("\n");
+          )

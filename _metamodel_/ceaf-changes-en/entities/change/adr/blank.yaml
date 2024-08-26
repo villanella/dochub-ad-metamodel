@@ -1,0 +1,6 @@
+# Бланк архитектурного решения
+entities:
+  seaf.change.adr:
+    presentations:
+      blank:
+        template: templates/blank-en.md

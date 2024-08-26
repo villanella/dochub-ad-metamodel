@@ -1,0 +1,19 @@
+## Метаданные пакета
+$package:
+  dochub-ad-metamodel:
+    # Идентификатор пакета
+    # Краткое название пакета
+    name: DocHub AD Metamodel
+    # Поставщик
+    vendor: nkrupenkina
+    # Описание
+    description: Arenadata Dochub Metamodel
+    # Версия
+    version: 0.0.1
+    # Зависимости от других пакетов
+    dependencies:
+      ceaf-changes-en: ">=1.0.0"
+imports:
+  - _metamodel_\packages.yaml
+  - entities/root.yaml
+  - tests.yaml

@@ -1,0 +1,43 @@
+# Структура меню
+entities:
+
+  # Настройка меню метамодели DocHub
+  aspects:
+    config:
+      root_menu: Architecture/Aspects   # Переопределяем вывод аспектов
+  contexts:
+    config:
+      root_menu: Architecture/Contexts  # Переопределяем вывод контекстов
+  components:
+    config:
+      root_menu: Architecture/Components            # Переопределяем вывод компонентов
+  docs:
+    config:
+      root_menu: Documents
+  seaf.change.adr:
+    config:
+      root_menu: Changes
+
+
+
+  # Основное меню
+  ad.main_menu:
+    menu: >
+      (
+        [
+          {  
+            "location": "Documents",
+            "order": 100
+          },
+
+          {
+            "location": "Architecture",
+            "order": 300
+          },
+      
+          {
+            "location": "Architecture/Components",
+            "order": 320
+          }
+        ];
+      )

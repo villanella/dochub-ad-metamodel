@@ -1,0 +1,103 @@
+# English locale for Dochub metamodel
+
+entities:
+  aspects:
+    presentations:
+      blank:
+        widgets:
+          summary:
+            title: Aspect Overview
+          components:
+            title: Presented in components
+          contexts:
+            title: Contexts
+          docs:
+            title: Documents
+          hierarchy:
+            title: Aspect in structure
+      hierarchy:
+        template: templates/hierarchy-en.puml
+      summary:
+        source: >
+          (
+            $ASPECT_ID := $params.aspect;
+            $MANIFEST := $;
+            $lookup(aspects, $ASPECT_ID).(
+                $ASPECT := $;
+                $FORM := $MANIFEST.forms["aspect" in entity].fields;
+                $FIELDS := $append([
+                    {
+                        "title": "ID",
+                        "content": $ASPECT_ID,
+                        "field": "id",
+                        "required": true
+                    },
+                    {
+                        "title": "Title",
+                        "content": title,
+                        "field": "title",
+                        "required": true
+                    }
+                ], $FORM.$spread().{
+                    "title": $.*.title,
+                    "required": $.*.required,
+                    "content": $lookup($ASPECT, $keys()[0]),
+                    "field": $keys()[0]
+                });
+            )
+          )
+      
+      
+      
+      
+      
+      
+
+      tree:
+        template: templates/aspects-tree-en.puml
+
+
+  components:
+    presentations:
+      blank:
+        widgets:
+          summary:
+            title: Component Overview
+          docs:
+            title: Documents
+          hierarchy:
+            title: Component in structure
+            template: templates/hierarchy-en.puml
+          contexts:
+            title: Contexts
+      tree:
+        template: templates/components-tree-en.puml
+      hierarchy:
+        template: templates/hierarchy-en.puml
+      summary:
+        source: >
+          (
+            $component_id := $params.component;
+            $lookup(components, $component_id).(
+                [
+                    {
+                        "title": "ID",
+                        "content": $component_id
+                    },
+                    {
+                        "title": "Title",
+                        "content": title
+                    },
+                    {
+                        "title": "Description",
+                        "content": description
+                    }
+                ]
+            )
+          )
+
+
+  contexts:
+    presentations:
+      tree:
+        template: templates/contexts-tree-en.puml

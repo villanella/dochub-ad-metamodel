@@ -1,0 +1,22 @@
+# Метаданные пакета
+$package:
+  ceaf-changes-en:
+    # Идентификатор пакета
+    # Краткое название пакета
+    name: CEAF Changes
+    # Поставщик
+    vendor: villanella
+    # Описание
+    description: CEAF Change Management En
+    # Версия
+    version: 1.0.1
+    # Зависимости от других пакетов
+    dependencies:
+      dochub: ">=3.9.0"
+      ceaf-changes: ">=1.2.6"
+
+imports:
+  #- _metamodel_/packages.yaml
+  - entities/root.yaml
+  - architecture/interface/root.yaml
+  - tests.yaml # uncomment to test metamodel

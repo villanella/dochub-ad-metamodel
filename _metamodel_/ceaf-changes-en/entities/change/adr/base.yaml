@@ -1,0 +1,22 @@
+# ADR (Architecture Decision Record)
+# Основано на https://github.com/joelparkerhenderson/architecture-decision-record
+entities:
+  seaf.change.adr:
+    menu: >
+      (
+          $append(
+              [{
+                  "location": "Changes/ADR",
+                  "link": "/entities/seaf.change.adr/list"
+              }],
+              $seaf_menu_location_by_id(
+                    $."seaf.change.adr",
+                    "",
+                    "Changes/ADR/",
+                    function($location, $item, $itemId, $collection){{
+                        "location": $location,
+                        "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $itemId
+                    }}
+            )
+        );
+      )

@@ -1,0 +1,36 @@
+# Бланк требования
+entities:
+  seaf.change.requirements:
+    presentations:
+      blank:
+        template: templates/blank-ad.md
+        source: >
+          (
+              $aspects := aspects;
+              $usecases := $."seaf.change.uc";
+              $id := $params."seaf-req-id";
+              $lookup($."seaf.change.requirements", $id).{
+                  "id": $id,
+                  "title": title,
+                  "type": type,
+                  "story": story,
+                  "priority": priority,
+                  "description": description,
+                  "verifications": [verifications.*.$],
+                  "functionality": [functionality[$].(
+                      $id := $;
+                      $lookup($aspects, $id).{
+                          "id": $id,
+                          "title": title ? title : $id
+                      }
+                  )],
+                  "usecases": [usecases[$].(
+                      $id := $;
+                      $lookup($usecases, $id).{
+                          "id": $id,
+                          "title": title ? title : $id
+                      }
+                  )]
+          
+              }
+          )

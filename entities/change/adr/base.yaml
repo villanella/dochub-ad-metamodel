@@ -1,0 +1,133 @@
+# ADR (Architecture Decision Record)
+# Основано на https://github.com/joelparkerhenderson/architecture-decision-record
+entities:
+  seaf.change.adr:
+    title: Architecture Decision Record
+    schema:
+      $defs:
+        seaf.change.adr.problem:
+          type: string
+          title: Описание проблемы
+          description: >
+            Опишите проблему архитектурного проектирования, которую вы решаете,
+            не оставляя вопросов о том, почему вы решаете эту проблему сейчас.
+            Следуя минималистскому подходу, рассматривайте и документируйте только
+            те проблемы, которые требуют решения на различных этапах жизненного цикла.
+        seaf.change.adr.decision:
+          type: string
+          title: Решение
+          description: >
+            Четко определите архитектурное решение.
+
+        seaf.change.adr.usecases.item:
+          title: Юз-кейс
+          description: >
+            Укажите юз-кейс, иллюстрирующий применение решения
+          $ref: "#/$rels/seaf.change.uc.uc"
+        seaf.change.adr.usecases:
+          title: Юз-кейсы
+          description: >
+            Перечислите юз-кейсы, иллюстрирующие решение
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/$defs/seaf.change.adr.usecases.item"
+
+        seaf.change.adr.requirements.item:
+          title: Требование
+          description: >
+            Укажите требование, которое удовлетворяет решение
+          $ref: "#/$rels/seaf.change.requirements.requirement"
+        seaf.change.adr.requirements:
+          title: Требования
+          description: >
+            Перечислите требования, которые должно удовлетворить архитектурное решение
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/$defs/seaf.change.adr.requirements.item"
+        seaf.change.adr.deciders.item:
+          title: Принимающий решение
+          type: string
+        seaf.change.adr.deciders:
+          title: Кто принял решение
+          description: >
+            Укажите всех, кто принимал архитектурное решение.
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/$defs/seaf.change.adr.deciders.item"
+        seaf.change.adr.dependencies.item:
+          title: Зависимость от другого решения
+          $ref: "#/$rels/seaf.change.adr.adr"
+        seaf.change.adr.dependencies:
+          title: Зависимости от других решений
+          description: >
+            Укажите от каких решений зависит данное
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/$defs/seaf.change.adr.dependencies.item"
+        seaf.change.adr:
+          type: object
+          properties:
+            title:
+              type: string
+              title: Название
+            moment:
+              type: string
+              title: Дата создания
+              pattern: ^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$
+            status:
+              type: string
+              title: Статус
+              enum:
+                - Proposed
+                - Development
+                - Done
+            problem:
+              $ref: "#/$defs/seaf.change.adr.problem"
+            deciders:
+              $ref: "#/$defs/seaf.change.adr.deciders"
+            decision:
+              $ref: "#/$defs/seaf.change.adr.decision"
+            requirements:
+              $ref: "#/$defs/seaf.change.adr.requirements"
+            usecases:
+              $ref: "#/$defs/seaf.change.adr.usecases"
+            dependencies:
+              $ref: "#/$defs/seaf.change.adr.dependencies"
+          required:
+            - title
+            - moment
+            - problem
+            - decision
+            - status
+            - requirements
+            - story
+      type: object
+      patternProperties:
+        "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+          $ref: "#/$defs/seaf.change.adr"
+    objects:
+      adr:
+        route: "/"
+        title: ADR
+    menu: >
+      (       
+          $append(
+              [{
+                  "location": "Changes/ADR",
+                  "link": "/entities/seaf.change.adr/list"
+              }],
+              $seaf_menu_location_by_id(
+                    $."seaf.change.adr",
+                    "",
+                    "Changes/ADR/",
+                    function($location, $item, $itemId, $collection){{
+                        "location": $location,
+                        "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $itemId
+                    }}
+            )
+        );
+      )
