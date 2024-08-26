@@ -16,6 +16,13 @@ seaf.change.uc:
       
       * 3a1. User hasn't changed HC map.
       * 3a2. Action fails with the error message "No changes applied".
+
+  adh.hc_map.edit2:
+    story: ADH-3677
+    title: Test UC HC map
+    priority: Low
+    description: |
+      Blah blah
     
 
 seaf.change.requirements:
@@ -42,6 +49,14 @@ seaf.change.requirements:
         condition: Component is successfully removed
     usecases:
       - adh.hc_map.edit
+  adh.hc_map.mm:
+    title: Edit HC map in MM
+    description: Test req
+    usecases:
+      - adh.hc_map.edit
+      - adh.hc_map.edit2
+
+
 
 seaf.change.adr:
   adh.hc_map.edit:
@@ -53,16 +68,10 @@ seaf.change.adr:
     status: Development
     requirements:
       - adh.hc_map.edit
-    issue: dfdf
-    context:
-      -
-    consequences:
-      -
     deciders:
       - n.krupenkina
     usecases:
       - adh.hc_map.edit
-      -
 
 
 

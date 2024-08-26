@@ -4,25 +4,6 @@ entities:
     presentations:
       blank:
 
-
-        widgets:
-          requirements: # Идентификатор виджета
-            # Иконка виджета
-            icon: description
-            # Название виджета
-            title: Документы
-            # Идентификатор презентации, которая будет использоваться в виджете
-            presentation: requirements
-            # Расположение слева
-            align: "<"
-            # Порядок расположения
-            order: 20
-            # Определяем стиль виджета
-            style:
-              border: true
-              padding: 12px
-              margin: 4px
-
         title: Карточка юз-кейса
         params:
           type: object
@@ -30,49 +11,39 @@ entities:
             seaf-uc-id:
               title: Идентификатор юз-кейса
               type: string
-          required:
-            - seaf-uc-id
-        type: markdown
-        template: templates/blank-ad.md
-        source: >
-          (
-              $aspects := aspects;
-              $id := $params."seaf-uc-id";
-              $lookup($."seaf.change.uc", $id).{
-                  "id": $id,
-                  "title": title,
-                  "priority": priority,
-                  "story": story,
-                  "needatest": needatest,
-                  "description": description
-              };
-          )
-      requirements:
-        title: Requirements
-        params:
-          type: object
-          properties:
             seaf-req-id:
-              title: Идентификатор требования
-              type: string
-
-            seaf-uc-id:
-              title: Идентификатор юз-кейса
+              title: Связанное требование
               type: string
           required:
-            - seaf-req-id
             - seaf-uc-id
         type: markdown
-
         template: templates/blank-ad.md
         source: >
-          (
-              $id := $params."seaf-uc-id";
-              $."seaf.change.requirements".$spread().(
-                  $id in *.usecases ?
-                  [$[$id in *.usecases]
-                    {
-                      "seaf-req-id": $keys()[0]
-                    }] : undefined;
-              )
-          ) 
+            (
+                $aspects := aspects;
+                $requirements := $."seaf.change.requirements";
+                $id := $params."seaf-uc-id";
+                $data := $lookup($."seaf.change.uc", $id).{
+                    "id": $id,
+                    "title": title,
+                    "priority": priority,
+                    "story": story,
+                    "needatest": needatest,
+                    "description": description
+                };
+                $merge([$data,  
+                {
+                "requirements": $requirements.$spread().(
+                    $REQ_KEY := $keys()[0];
+                    $.*.usecases[$ = $id] ? [(          
+                    $REQ := $lookup($requirements, $REQ_KEY);
+                        {
+                            "title": $REQ.title,
+                            "seaf-req-id" : $REQ_KEY,
+                            "link": "/entities/seaf.change.requirements/blank?seaf-req-id=" & $REQ_KEY 
+                        }
+                    )]
+                  )
+                }
+               ])
+            )

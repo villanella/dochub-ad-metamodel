@@ -12,8 +12,9 @@ $package:
     version: 0.0.1
     # Зависимости от других пакетов
     dependencies:
-      ceaf-changes-en: ">=1.0.0"
+      ceaf-changes: ">=1.2.6"
+      ceaf-changes-en: ">=1.0.2"
 imports:
-  #- _metamodel_\packages.yaml
+  - _metamodel_\packages.yaml
   - entities/root.yaml
   - tests.yaml
