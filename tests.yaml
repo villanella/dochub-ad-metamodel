@@ -32,6 +32,7 @@ seaf.change.requirements:
     type: functional
     story: ADH-3677
     status: implemented
+    priority: Medium
     description: |
       1. Add new action "Add/Remove components" to the service. Remove other changing HC map actions from the service.
       2. Prechecks for Add and Remove **shall** be runned in the beginning of the action:

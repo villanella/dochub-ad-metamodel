@@ -1,7 +1,7 @@
 ## {{title}}
 * ID: **{{id}}**
-* Type: {{type}}
-* Priority: {{priority}}
+{{#type}}* Type: {{type}}{{/type}}
+{{#priority}}* Priority: {{priority}}{{/priority}}
 * Story: [{{story}}](https://tracker.yandex.ru/{{story}})
 
 ### Description

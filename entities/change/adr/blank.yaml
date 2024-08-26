@@ -17,19 +17,11 @@ entities:
         source: >
           (
               $id := $params."seaf-adr-id";
-              $usecases := $."seaf.change.uc";
               $requirements := $."seaf.change.requirements";
               $adr := $."seaf.change.adr";
               $data := $lookup($."seaf.change.adr", $id);
               $merge([$data, {
                   "id": $id,
-                  "usecases": $data.usecases.(
-                      $title := $lookup($usecases, $).title;
-                      {
-                          "title": $title ? $title : $,
-                          "link": "@entity/seaf.change.uc/blank?seaf-uc-id=" & $
-                      } 
-                  ),
                   "requirements": $data.requirements.(
                       $title := $lookup($requirements, $).title;
                       {
