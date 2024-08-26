@@ -21,6 +21,7 @@ seaf.change.uc:
     story: ADH-3677
     title: Test UC HC map
     priority: Low
+    needatest: false
     description: |
       Blah blah
     
@@ -55,6 +56,9 @@ seaf.change.requirements:
     usecases:
       - adh.hc_map.edit
       - adh.hc_map.edit2
+    functionality:
+      - adh
+      - adh.security
 
 
 
@@ -70,8 +74,27 @@ seaf.change.adr:
       - adh.hc_map.edit
     deciders:
       - n.krupenkina
+      - a.shitov
     usecases:
       - adh.hc_map.edit
+    issue:
+    context:
+      -
+    consequences:
+      -
+    dependencies:
+      - test.adr
 
 
 
+
+
+authors:
+  n.krupenkina:
+    name: Nadezhda
+    surname: Krupenkina
+    role: System Analyst
+  a.shitov:
+    name: Andrey
+    surname: Shitov
+    role: Architect

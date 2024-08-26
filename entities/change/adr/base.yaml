@@ -49,6 +49,7 @@ entities:
         seaf.change.adr.deciders.item:
           title: Принимающий решение
           type: string
+          $ref: "#/$rels/authors.author"
         seaf.change.adr.deciders:
           title: Кто принял решение
           description: >

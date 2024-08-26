@@ -1,0 +1,34 @@
+entities:
+  authors:
+    title: Author
+    objects:
+      author:
+        route: "/"
+        title: Author
+    schema:
+      type: object
+      patternProperties:
+        "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+          type: object
+          properties:
+            name:
+              title: Author First Name
+              type: string
+            surname:
+              title: Author Surname
+              type: string
+            role:
+              title: Role/Position
+              type: enum
+              enum:
+                - Architect
+                - System Analyst
+                - Manual QA
+                - Automation QA
+                - Developer
+
+
+          required:
+            - name
+            - surname
+            - role
