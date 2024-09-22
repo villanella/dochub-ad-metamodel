@@ -1,0 +1,52 @@
+# Сводка по архитектурному аспекту
+entities:
+  aspects:
+    presentations:
+      # Встраиваемся в презентацию бланка
+      blank:
+        # Добавляем собственный виджет
+        widgets:
+          tags: # Идентификатор виджета
+            # Иконка виджета
+            icon: description
+            # Название виджета
+            title: Related tests
+            # Идентификатор презентации, которая будет использоваться в виджете
+            presentation: tags
+            # Расположение слева
+            align: "<"
+            # Порядок расположения
+            order: 115
+            # Определяем стиль виджета
+            style:
+              border: true
+              padding: 0px
+              margin: 0px
+      tags:
+        title: Test tags
+        params:
+          type: object
+          properties:
+            aspect:
+              title: Идентификатор аспекта
+              type: string
+          required:
+            - aspect
+        type: markdown
+        template: templates/tags.md
+        source: >
+          (
+              $MANIFEST := $;
+              $ASPECT := $params.aspect;
+              { "tags": tags.$spread().(
+                  $KEY := $keys()[0];
+                  $.*.aspects[$ = $ASPECT] ? [(
+                      $TAG := $lookup($MANIFEST.tags, $KEY);
+                      {
+                          "title": $TAG.name,
+                          "id" : $KEY
+                      }
+                  )]
+                )
+              }
+          )

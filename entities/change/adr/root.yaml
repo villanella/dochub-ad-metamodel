@@ -1,3 +1,4 @@
 imports:
   - base.yaml
   - blank.yaml
+  - list.yaml

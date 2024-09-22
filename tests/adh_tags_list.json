@@ -1,0 +1,250 @@
+[
+    {
+      "id": 1549,
+      "name": "ad_community"
+    },
+    {
+      "id": 610,
+      "name": "add_kerberos_variant"
+    },
+    {
+      "id": 1551,
+      "name": "ad_enterprise"
+    },
+    {
+      "id": 1538,
+      "name": "ad_off"
+    },
+    {
+      "id": 1535,
+      "name": "ad_on"
+    },
+    {
+      "id": 1546,
+      "name": "ad_realms"
+    },
+    {
+      "id": 1541,
+      "name": "ad_reconf"
+    },
+    {
+      "id": 1550,
+      "name": "ad_ycc"
+    },
+    {
+      "id": 2222,
+      "name": "astra"
+    },
+    {
+      "id": 2013,
+      "name": "configuration"
+    },
+    {
+      "id": 1545,
+      "name": "custom_krb5"
+    },
+    {
+      "id": 1544,
+      "name": "custom_ldap"
+    },
+    {
+      "id": 2015,
+      "name": "dfn_internal_nameservices"
+    },
+    {
+      "id": 2212,
+      "name": "external_mysql"
+    },
+    {
+      "id": 2211,
+      "name": "external_postgres"
+    },
+    {
+      "id": 1472,
+      "name": "flink_conf"
+    },
+    {
+      "id": 1473,
+      "name": "flink_ha_off"
+    },
+    {
+      "id": 1471,
+      "name": "flink_ha_on"
+    },
+    {
+      "id": 1476,
+      "name": "flink_install"
+    },
+    {
+      "id": 1474,
+      "name": "flink_jm_add"
+    },
+    {
+      "id": 1475,
+      "name": "flink_jm_rmv"
+    },
+    {
+      "id": 1481,
+      "name": "flink_on_yarn"
+    },
+    {
+      "id": 1321,
+      "name": "for_auto"
+    },
+    {
+      "id": 15,
+      "name": "full"
+    },
+    {
+      "id": 1811,
+      "name": "ha_RM"
+    },
+    {
+      "id": 2319,
+      "name": "impala"
+    },
+    {
+      "id": 1539,
+      "name": "ipa_off"
+    },
+    {
+      "id": 1536,
+      "name": "ipa_on"
+    },
+    {
+      "id": 1547,
+      "name": "ipa_realms"
+    },
+    {
+      "id": 1542,
+      "name": "ipa_reconf"
+    },
+    {
+      "id": 1286,
+      "name": "kerberos_included"
+    },
+    {
+      "id": 1552,
+      "name": "kerb_web_auth"
+    },
+    {
+      "id": 1540,
+      "name": "mit_off"
+    },
+    {
+      "id": 1537,
+      "name": "mit_on"
+    },
+    {
+      "id": 1548,
+      "name": "mit_realms"
+    },
+    {
+      "id": 1543,
+      "name": "mit_reconf"
+    },
+    {
+      "id": 9,
+      "name": "negative"
+    },
+    {
+      "id": 1336,
+      "name": "no_need_auto"
+    },
+    {
+      "id": 1166,
+      "name": "offline"
+    },
+    {
+      "id": 958,
+      "name": "@pytest.mark.skip('Do not run on current RC')"
+    },
+    {
+      "id": 992,
+      "name": "@pytest.mark.skip(reason='This case is not main and has not correctly implemented in Bundle')"
+    },
+    {
+      "id": 342,
+      "name": "@pytest.mark.usefixtures('bundle_fs')"
+    },
+    {
+      "id": 509,
+      "name": "@pytest.mark.usefixtures('bundle_fs', 'configure_adh_cluster')"
+    },
+    {
+      "id": 908,
+      "name": "@pytest.mark.usefixtures('bundle_fs', 'configure_adh_cluster', 'cluster_with_monitoring')"
+    },
+    {
+      "id": 1222,
+      "name": "@pytest.mark.usefixtures('configure_adh_cluster_wo_lazy_mon')"
+    },
+    {
+      "id": 1210,
+      "name": "@pytest.mark.usefixtures('configure_adh_cluster_wo_lazy_mon', 'bundle_fs')"
+    },
+    {
+      "id": 45,
+      "name": "@pytest.mark.usefixtures('create_and_run_kerberos_server')"
+    },
+    {
+      "id": 1185,
+      "name": "@pytest.mark.usefixtures('_installed_adh')"
+    },
+    {
+      "id": 1322,
+      "name": "@pytest.mark.xfail(raises=<class 'AssertionError'>, reason='https://tracker.yandex.ru/ADH-2336')"
+    },
+    {
+      "id": 25,
+      "name": "@pytest.mark.xfail(reason='Spark check bug')"
+    },
+    {
+      "id": 409,
+      "name": "@pytest.mark.xfail(reason='YARN expand BUG https://arenadata.atlassian.net/browse/ADH-1396')"
+    },
+    {
+      "id": 1212,
+      "name": "scenario('install/minimal_ee')"
+    },
+    {
+      "id": 1093,
+      "name": "scenario('install/minimal_ee_wo_monitoring')"
+    },
+    {
+      "id": 1211,
+      "name": "scenario('install/one_host_ce')"
+    },
+    {
+      "id": 2324,
+      "name": "scenario('install/prod_like_ee')"
+    },
+    {
+      "id": 2318,
+      "name": "spark3_connect"
+    },
+    {
+      "id": 1553,
+      "name": "ssl_on"
+    },
+    {
+      "id": 2311,
+      "name": "ssm"
+    },
+    {
+      "id": 638,
+      "name": "super_long"
+    },
+    {
+      "id": 2214,
+      "name": "tls"
+    },
+    {
+      "id": 2173,
+      "name": "v2.1.10_b1"
+    },
+    {
+      "id": 1452,
+      "name": "zookeeper_upgrade"
+    }
+]

@@ -31,6 +31,21 @@ entities:
           minItems: 1
           items:
             $ref: "#/$defs/seaf.change.adr.requirements.item"
+
+        seaf.change.adr.old_reqs.item:
+          title: Устаревшее требование
+          description: >
+            Укажите требование, которое удовлетворяет решение
+          $ref: "#/$rels/seaf.change.requirements.requirement"
+        seaf.change.adr.old_reqs:
+          title: Требования
+          description: >
+            Перечислите требования, которые удалены, отложены или перенесены в рамках текущей задачи.
+          type: array
+          minItems: 0
+          items:
+            $ref: "#/$defs/seaf.change.adr.old_reqs.item"
+
         seaf.change.adr.deciders.item:
           title: Принимающий решение
           type: string
@@ -68,9 +83,12 @@ entities:
               type: string
               title: Статус
               enum:
-                - Proposed
+                - Open
+                - Analysis
                 - Development
+                - Review
                 - Done
+                - Cancelled
             problem:
               $ref: "#/$defs/seaf.change.adr.problem"
             deciders:
@@ -79,6 +97,8 @@ entities:
               $ref: "#/$defs/seaf.change.adr.decision"
             requirements:
               $ref: "#/$defs/seaf.change.adr.requirements"
+            old_reqs:
+              $ref: "#/$defs/seaf.change.adr.old_reqs"
             dependencies:
               $ref: "#/$defs/seaf.change.adr.dependencies"
           required:
@@ -101,13 +121,13 @@ entities:
       (       
           $append(
               [{
-                  "location": "Changes/ADR",
+                  "location": "Changes/Stories",
                   "link": "/entities/seaf.change.adr/list"
               }],
               $seaf_menu_location_by_id(
                     $."seaf.change.adr",
                     "",
-                    "Changes/ADR/",
+                    "Changes/Stories/",
                     function($location, $item, $itemId, $collection){{
                         "location": $location,
                         "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $itemId

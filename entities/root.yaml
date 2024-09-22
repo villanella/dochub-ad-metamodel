@@ -1,3 +1,5 @@
 imports:
   - change/root.yaml
   - authors/root.yaml
+  - aspects/root.yaml
+  - tags/root.yaml

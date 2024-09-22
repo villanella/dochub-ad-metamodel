@@ -15,6 +15,7 @@ entities:
                   "type": type,
                   "story": story,
                   "priority": priority,
+                  "status": status,
                   "description": description,
                   "verifications": [verifications.*.$],
                   "functionality": [functionality[$].(

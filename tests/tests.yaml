@@ -1,8 +1,12 @@
+imports:
+  - config_table.yaml
+  - adh_tags_entities.yaml
+
 seaf.change.uc:
   adh.hc_map.edit:
     story: ADH-3677
     title: Edit HC map
-    priority: Medium
+    priority: medium
     needatest: true
     description: |
 
@@ -31,7 +35,7 @@ seaf.change.requirements:
     title: Edit HC map
     type: functional
     story: ADH-3677
-    status: implemented
+    status: Proposed
     priority: Medium
     description: |
       1. Add new action "Add/Remove components" to the service. Remove other changing HC map actions from the service.
@@ -51,42 +55,49 @@ seaf.change.requirements:
         condition: Component is successfully removed
     usecases:
       - adh.hc_map.edit
+    functionality:
+      - adh.hc_map
+
   adh.hc_map.mm:
     title: Edit HC map in MM
     description: Test req
+    story: ADH-3676
     usecases:
       - adh.hc_map.edit
       - adh.hc_map.edit2
+    type: functional
+    status: declined
+    verifications:
     functionality:
-      - adh
-      - adh.security
+      - adh.hc_map
+
 
 
 
 seaf.change.adr:
   adh.hc_map.edit:
     title: Edit HC map
-    moment: 2024-08-23
+    moment: 2024-08-26
     story: ADH-3677
     problem: Too many changing HC map actions
     decision: Combine Add/Remove/Move actions into the single action.
     status: Development
     requirements:
       - adh.hc_map.edit
+    old_reqs:
+      - adh.hc_map.mm
     deciders:
       - n.krupenkina
       - a.shitov
     usecases:
       - adh.hc_map.edit
+    dependencies:
+      - test.adr
     issue:
     context:
       -
     consequences:
       -
-    dependencies:
-      - test.adr
-
-
 
 
 
@@ -99,3 +110,63 @@ authors:
     name: Andrey
     surname: Shitov
     role: Architect
+
+aspects:
+  adh:
+    location: ADH
+    title: ADH Aspects
+
+  adh.hc_map:
+    title: HC map
+    location: ADH/HC map
+
+  adh.security.kerberos:
+    title: Kerberos
+    location: ADH/Security/Kerberos
+
+components:
+  adh:
+    title: ADH cluster
+    entity: collections
+    description: Arenadata Hadoop cluster
+
+  adh.hdfs:
+    title: HDFS
+    entity: collections
+    aspects:
+      - adh.hc_map
+
+
+  adh.hive:
+    title: Hive
+    entity: collections
+    aspects:
+      - adh.hc_map
+
+
+#ttags:
+#  tatta:
+#    name: tatta
+#  tatta2:
+#    name: tatta2
+
+contexts:
+  adh:
+    title: ADH Architecture
+    location: ADH
+    components:
+      - adh.*
+
+  adh.hdfs:
+    title: HDFS
+    location: ADH/HDFS
+    components:
+      - adh.hdfs.*
+
+  adh.hive:
+    title: HDFS
+    location: ADH/Hive
+    components:
+      - adh.hive.*
+  adh.yarn:
+    title:

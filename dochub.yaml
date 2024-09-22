@@ -7,7 +7,7 @@ $package:
     # Поставщик
     vendor: nkrupenkina
     # Описание
-    description: Arenadata Dochub Metamodel
+    description: Arenadata DocHub Metamodel
     # Версия
     version: 0.0.1
     # Зависимости от других пакетов
@@ -17,4 +17,4 @@ $package:
 imports:
   - _metamodel_\packages.yaml
   - entities/root.yaml
-  - tests.yaml
+  - tests/tests.yaml

@@ -17,9 +17,9 @@ entities:
             priority:
               type: string
               enum:
-                - High
-                - Medium
-                - Low
+                - high
+                - medium
+                - low
             story:
               title: Story
               type: string
@@ -29,7 +29,6 @@ entities:
             description:
               title: Main flow
               type: string
-
           required:
             - title
             - description

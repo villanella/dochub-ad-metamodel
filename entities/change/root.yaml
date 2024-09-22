@@ -2,3 +2,4 @@ imports:
   - adr/root.yaml
   - requirements/root.yaml
   - usecases/root.yaml
+  - releases/root.yaml

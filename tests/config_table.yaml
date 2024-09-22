@@ -1,0 +1,46 @@
+docs:
+  ad.config_table.hive_site:
+    type: table
+    title: hive-site.xml
+    headers:
+      - value: name
+        text: Name
+        sortable: true
+        align: left
+      - value: display_name
+        text: Display name
+        sortable: false
+      - value: description
+        text: Description
+        sortable: false
+        align: left
+      - value: type
+        text: Type
+        sortable: false
+        align: left
+      - value: default
+        text: Default
+        sortable: false
+      - value: group_customization
+        text: Group custom.
+      - value: required
+        text: Required
+      - value: advanced
+        text: Advanced
+    origin:
+    source: showcases.jsonata     # Обработа данных внешнего ресурса
+
+  ad.adh.tags:
+    type: table
+    headers:
+      - value: name
+        text: Tag name
+        sortable: true
+        align: left
+        width: 100%
+    location: ADH/Tags
+    source: adh_tags_list.json        # Файл с данными
+
+datasets:
+  tags:
+    origin: adh_tags.json

@@ -26,6 +26,14 @@ entities:
                 - High
                 - Medium
                 - Low
+            status:
+              type: string
+              enum:
+                - Proposed
+                - Accepted
+                - Done
+                - Postponed
+                - Declined
             story:
               title: Story
               type: string

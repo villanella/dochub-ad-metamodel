@@ -29,6 +29,13 @@ entities:
                           "link": "@entity/seaf.change.requirements/blank?seaf-req-id=" & $
                       } 
                   ),
+                  "old_reqs": $data.old_reqs.(
+                      $title := $lookup($requirements, $).title;
+                      {
+                          "title": $title ? $title : $,
+                          "link": "/entities/seaf.change.requirements/blank?seaf-req-id=" & $
+                      } 
+                  ),
                   "dependencies": $data.dependencies.(
                       $title := $lookup($adr, $).title;
                       {
