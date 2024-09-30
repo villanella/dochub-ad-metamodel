@@ -1,0 +1,382 @@
+datasets:
+  testcases_aggr_new:
+    origin:
+      releases: ($."releases")
+      stories: ($."seaf.change.story")
+      testcasesjson: testcases.json
+    source: >
+      (
+       $testcasesjson := testcasesjson;
+       stories.$spread().(
+         $story_id := $keys()[0];
+         $issue_id := *.issue;
+         $title := *.title;
+         $testcase := [$testcasesjson.content[story=$issue_id]];
+         $merge([*,{"story_id": $story_id, "testcases": $testcase}]);
+        );        
+      )
+
+  reqs_cases:
+    origin:
+      requirements: ($."seaf.change.requirements")
+      testcasesjson: testcases.json
+      stories: ($."seaf.change.story")
+    source: >
+      (
+       $testcasesjson := testcasesjson;
+       requirements.$spread().(
+         $req_id := $keys()[0];
+         $title := *.title;
+         $priority := *.priority;
+         $testcase := [$testcasesjson.content[tags[0].name=$req_id]];
+         $story := [$stories.*.requirements[0]=$req_id];
+         $merge([*,{"req_id": $req_id, "testcases": $testcase}]);
+        ) ;        
+      )
+      
+
+  tags_cases:
+    origin:
+      tags: ($."tags")
+      testcasesjson: testcases.json
+      aspects: ($.aspects)
+    source: >
+      (
+       $testcasesjson := testcasesjson;
+       tags.$spread().(
+         $tag_id := $keys()[0];
+         $title := *.name;
+         $aspect := *.aspect;
+         $testcase := [$testcasesjson.content[tags[0].name=$title]];
+         $merge([*,{"tag_id": $tag_id, "testcases": $testcase}]);
+        ) ;        
+      )
+      
+
+  tests_aspects:
+    origin:
+      testcasesjson: testcases.json
+    source: >
+      (
+       $testcasesjson := testcasesjson.content;
+       $testcasesjson.{
+         "test_id": id,
+         "test_name": name,
+         "tags": tags.name,
+         "automated": $string(automated),
+         "story": story
+       }
+      )
+      
+
+  tests_aspects_flat:
+    origin: tests_aspects
+    source: >
+        (
+        $map($, function($v, $i, $a, $b, $c) {
+           $map($v.tags, function($tag) {
+               {
+                   "tag_id": $tag,
+                   "test_name": $v.test_name,
+                   "test_id": $v.test_id,
+                   "automated": $v.automated,
+                   "story": $v.story
+               }
+           })
+        })
+        )
+      
+      
+      
+  tests_aspects_datalake:
+    origin: tests_aspects
+    source: >
+      (
+          $datalake := $;
+      [
+          $datalake.tags.
+          {
+              "tag_id": $,
+              "test_name": %.test_name,
+              "test_id": %.test_id,
+              "story": story,
+              "automated": %.automated
+      },
+      $datalake.
+      {
+              "tag_id": $exists(tags) ? ($count(tags)=0 ? "No tag  items" : "") : "No tags",
+              "test_name": test_name,
+              "test_id": test_id,
+              "automated": automated,
+              "story": story,
+              "is_error": $exists(tags)=false or ($exists(tags) and $count(tags)=0)
+          
+      }[is_error=true]
+      ]
+      )
+
+docs:
+
+  rel-test-matrix-beauty-links:
+    type: table
+    headers:
+      - value: release
+        text: Release
+        sortable: true
+      - value: title
+        text: Story
+        sortable: true
+        link: story_link
+        align: left
+      - value: issue_id
+        text: Tracker
+        sortable: true
+        link: issue_link
+        align: left
+      - value: testcases
+        text: Tests
+        link: testlink
+        sortable: true
+#      - value: requirements
+#        text: Requirements
+    origin: testcases_aggr_new
+    location: ADH/Matrices/Release tests
+
+    source: >
+      (
+        [
+          $.{
+          "title": title,
+          "issue_id": issue,
+          "story_id": story_id,
+          "issue_link": "https://tracker.yandex.ru/" & issue,
+          "story_link": "/entities/seaf.change.story/blank?seaf-story-id=" & story_id,
+          "testcases": $join(testcases.$string(name), '\n'),
+          "testlink": $split($join(testcases.$replace($string(id), /[^]/, 'https://allure-ee.adsw.io/project/8/test-cases/' & id & '\n')), '\n')[0],
+          "release": release,
+          "requirements": $join(requirements, '\n')
+      
+        }
+        ]^(title)
+      )
+      
+  rel-reqs-tests:
+    type: table
+    headers:
+      - value: story
+        text: Story
+      - value: title
+        text: Req Title
+        sortable: true
+        align: left
+      - value: req_id
+        text: ID
+        sortable: true
+        link: req_link
+        align: left
+      - value: needatest
+        text: Need AT
+      - value: priority
+        text: Priority
+      - value: testcases
+        text: Tests
+        link: testlink
+        sortable: true
+    origin: reqs_cases
+    location: ADH/Matrices/Reqs-Tests
+
+    source: >
+      (
+        [
+          $.{
+          "title": title,
+          "req_id": req_id,
+          "needatest": needatest,
+          "priority": priority,
+          "req_link": "/entities/seaf.change.requirements/blank?seaf-req-id=" & req_id,
+          "testcases": $join(testcases.$string(name), '\n'),
+          "testlink": $split($join(testcases.$replace($string(id), /[^]/, 'https://allure-ee.adsw.io/project/8/test-cases/' & id & '\n')), '\n')[0],
+          "story": story
+        }
+        ]^(title)
+      )
+
+  rel-aspects-tags-tests:
+    type: table
+    headers:
+      - value: aspect
+        text: Aspect
+        link: aspect_link
+        sortable: true
+      - value: title
+        text: Tag Title
+        sortable: true
+        align: left
+      - value: testcases
+        text: Tests
+        link: testlink
+        sortable: true
+    origin: tags_cases
+    location: ADH/Matrices/Aspects-Tags-Tests
+
+    source: >
+      (
+        [
+          $.{
+          "title": name,
+          "tag_id": req_id,
+          "aspect": aspects[0], 
+          "aspect_link": "/entities/aspects/blank?dh-aspect-id=" & aspect,
+          "req_link": "/entities/tags/blank?tag-id=" & tag_id,
+          "testcases": $join(testcases.$string(name), '\n'),
+          "testlink": $split($join(testcases.$replace($string(id), /[^]/, 'https://allure-ee.adsw.io/project/8/test-cases/' & id & '\n')), '\n')[0]
+        }
+        ]^(aspect)
+      )
+
+
+
+  rel-aspects-tests:
+    type: table
+    headers:
+      - value: aspect_id
+        text: Aspect
+        link: aspect_link
+        sortable: true
+      - value: test_name
+        text: Test
+        link: testlink
+        sortable: true
+      - value: story
+        text: Tracker
+        link: story_link
+        sortable: true
+      - value: automated
+        text: Automated
+        sortable: true
+    origin: tests_aspects_flat
+    location: ADH/Matrices/Aspects-Tests
+
+    source: >
+      (
+        [
+          $.{
+          "test_name": test_name,
+          "aspect_id": tag_id, 
+          "aspect_link": "/entities/aspects/blank?dh-aspect-id=" & aspect_id,
+          "testlink": "https://allure-ee.adsw.io/project/8/test-cases/" & test_id,
+          "story": story,
+          "story_link": "https://tracker.yandex.ru/" & story,
+          "automated": $string(automated)
+        }
+        ]^(aspect)
+      )
+
+
+  rel-aspects-tests-filtered:
+    type: table
+    headers:
+      - value: aspect_id
+        text: Aspect
+        link: aspect_link
+        sortable: true
+      - value: test_name
+        text: Test
+        link: testlink
+        sortable: true
+      - value: story
+        text: Tracker
+        link: story_link
+        sortable: true
+      - value: automated
+        text: Automated
+        sortable: true
+    origin: tests_aspects_flat
+    #location: ADH/Matrices/Aspects-Tests-Filtered
+
+    source: >
+      (
+          $manifest := $;
+          $aspect_id := $params."aspect_id";
+          $test_name := test_name
+      )
+
+
+  aspects-tests-datalake:
+    type: table
+    headers:
+      - value: aspect_id
+        text: Aspect
+        link: aspect_link
+        sortable: true
+      - value: test_name
+        text: Test
+        link: testlink
+        sortable: true
+      - value: story
+        text: Tracker
+        link: story_link
+        sortable: true
+      - value: automated
+        text: Automated
+        sortable: true
+    origin:
+      datalake: tests_aspects_datalake
+    source: >
+      (
+          /* Входящий параметр */
+          $aspect_id := $params.aspect_id;
+          
+          
+          /* Тесты */
+          $datalake := datalake;
+          
+          [
+            $datalake.{
+            "test_name": test_name,
+            "aspect_id": tag_id, 
+            "aspect_link": "/entities/aspects/blank?dh-aspect-id=" & $aspect_id,
+            "testlink": "https://allure-ee.adsw.io/project/8/test-cases/" & test_id,
+            "story": story,
+            "story_link": "https://tracker.yandex.ru/" & story,
+            "automated": $string(automated)
+          }
+          ][aspect_id=$aspect_id];
+      
+      )
+      
+      
+  aspects-tagged-datalake:
+    type: table
+    headers:
+      - value: aspect
+        text: Aspect
+        link: aspect_link
+        sortable: true
+      - value: title
+        text: Tag Title
+        sortable: true
+        align: left
+      - value: testcases
+        text: Tests
+        link: testlink
+        sortable: true
+    origin: tags_cases
+    location: ADH/Matrices/Aspects-Tagged-Cases
+
+    source: >
+      (
+        /* Входящий параметр */
+        $aspect_id := $params.aspect_id;
+        [
+          $.{
+          "title": name,
+          "tag_id": req_id,
+          "aspect": aspects[0], 
+          "aspect_link": "/entities/aspects/blank?dh-aspect-id=" & aspect,
+          "req_link": "/entities/tags/blank?tag-id=" & tag_id,
+          "testcases": $join(testcases.$string(name), '\n'),
+          "testlink": $split($join(testcases.$replace($string(id), /[^]/, 'https://allure-ee.adsw.io/project/8/test-cases/' & id & '\n')), '\n')[0]
+        }
+        ][aspect=$aspect_id];
+      )
