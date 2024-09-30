@@ -17,5 +17,5 @@ $package:
 imports:
   #- _metamodel_\packages.yaml  # включать из корня в целевом проекте
   - entities/root.yaml
-  #- matrices/root.yaml
+  #- matrices-examples/root.yaml
   #- tests/tests.yaml           # включить с собственными тестовыми данными
