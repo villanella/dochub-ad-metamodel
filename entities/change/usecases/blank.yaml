@@ -27,8 +27,6 @@ entities:
                     "id": $id,
                     "title": title,
                     "priority": priority,
-                    "story": story,
-                    "needatest": needatest,
                     "description": description
                 };
                 $merge([$data,  

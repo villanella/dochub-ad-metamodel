@@ -1,0 +1,18 @@
+entities:
+  releases:
+    title: Release
+    objects:
+      release:
+        route: "/"
+        title: Release
+    schema:
+      type: object
+      patternProperties:
+        "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+          type: object
+          properties:
+            name:
+              title: Release
+              type: string
+          required:
+            - name

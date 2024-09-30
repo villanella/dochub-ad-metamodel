@@ -1,4 +1,5 @@
 imports:
-  - adr/root.yaml
+  - stories/root.yaml
   - requirements/root.yaml
   - usecases/root.yaml
+  - releases/root.yaml

@@ -1,0 +1,32 @@
+entities:
+  tags:
+    title: Tags
+    objects:
+      tag:
+        route: "/"
+        title: Tag
+
+    schema:
+      type: object
+      patternProperties:
+        "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+          type: object
+          properties:
+            id:
+              title: id
+              type: integer
+            name:
+              title: name
+              type: string
+          required:
+            - id
+            - name
+
+
+tags:
+  test:
+    id: 1
+    name: test
+  test2:
+    id: 2
+    name: test2

@@ -20,20 +20,12 @@ entities:
                 - High
                 - Medium
                 - Low
-            story:
-              title: Story
-              type: string
-            needatest:
-              title: Need autotest
-              type: boolean
             description:
               title: Main flow
               type: string
-
           required:
             - title
             - description
-            - story
     menu: >
       (
         $append(

@@ -13,8 +13,9 @@ entities:
                   "id": $id,
                   "title": title,
                   "type": type,
-                  "story": story,
                   "priority": priority,
+                  "needatest": needatest,
+                  "status": status,
                   "description": description,
                   "verifications": [verifications.*.$],
                   "functionality": [functionality[$].(
@@ -34,3 +35,7 @@ entities:
           
               }
           )
+      tree:
+        title: Requirements
+        type: plantuml
+        template: templates/tree-en.puml

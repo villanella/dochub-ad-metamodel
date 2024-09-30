@@ -26,9 +26,14 @@ entities:
                 - High
                 - Medium
                 - Low
-            story:
-              title: Story
+            status:
               type: string
+              enum:
+                - Proposed
+                - Accepted
+                - Done
+                - Postponed
+                - Declined
             usecases:
               title: Use Case
               type: array
@@ -42,6 +47,9 @@ entities:
             description:
               title: Подробное описание требования
               type: string
+            needatest:
+              title: Need autotest
+              type: boolean
             verifications:
               title: Критерии выполнения
               type: object
@@ -65,6 +73,7 @@ entities:
             - usecases
             - description
             - verifications
+            - needatest
     menu: >
       (
         $append(

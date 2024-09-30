@@ -7,14 +7,14 @@ $package:
     # Поставщик
     vendor: nkrupenkina
     # Описание
-    description: Arenadata Dochub Metamodel
+    description: Arenadata DocHub Metamodel
     # Версия
     version: 0.0.1
-    # Зависимости от других пакетов
-    dependencies:
-      ceaf-changes: ">=1.2.6"
-      ceaf-changes-en: ">=1.0.2"
+    # Зависимости от других пакетов - включить в целевом проекте
+    #dependencies:
+    #  ceaf-changes: ">=1.2.6"
+    #  ceaf-changes-en: ">=1.0.2"
 imports:
   - _metamodel_\packages.yaml
   - entities/root.yaml
-  - tests.yaml
+  #- tests/tests.yaml - включить с собственными тестовыми данными
