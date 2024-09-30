@@ -17,22 +17,15 @@ entities:
             priority:
               type: string
               enum:
-                - high
-                - medium
-                - low
-            story:
-              title: Story
-              type: string
-            needatest:
-              title: Need autotest
-              type: boolean
+                - High
+                - Medium
+                - Low
             description:
               title: Main flow
               type: string
           required:
             - title
             - description
-            - story
     menu: >
       (
         $append(

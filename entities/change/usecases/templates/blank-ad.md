@@ -1,9 +1,7 @@
 ## {{title}}
 * ID: **{{id}}**
-* Priority: {{priority}}
-* Story: [{{story}}](https://tracker.yandex.ru/{{story}})
-* Need autotest: {{needatest}}
-
+{{#priority}}* Priority: **{{priority}}**{{/priority}}
+ 
 ### Main Flow
 {{&description}}
 

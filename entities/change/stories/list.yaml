@@ -1,12 +1,16 @@
-# Бланк архитектурного решения
-# Not imported because of attr duplicates
 entities:
-  seaf.change.adr:
+  seaf.change.story:
     presentations:
       list:
-        title: ADR Card
+        title: Story Card
         type: table
         headers:
+          - value: issue
+            text: Tracker
+            sortable: true
+            align: left
+            width: 5%
+            link: issue_link
           - value: id
             text: ID
             sortable: true
@@ -14,36 +18,37 @@ entities:
             width: 5%
             link: link
           - value: moment
-            text: Дата
+            text: Date
             sortable: true
             align: left
             width: 5%
           - value: title
-            text: Название
+            text: Title
             sortable: true
             align: left
             width: 10%
           - value: status
-            text: Статус
+            text: Status
             sortable: true
             align: left
             width: 5%
-          - value: story
-            text: Tracker
+          - value: release
+            text: Release
             sortable: true
             align: left
             width: 5%
         source: >
           (
-              $."seaf.change.adr".$spread().(
+              $."seaf.change.story".$spread().(
                   $id := $keys()[0];
                   {
                       "id": $id,
                       "status": *.status,
+                      "release": *.release,
                       "moment": *.moment,
-                      "story": *.story,
-                      "story_link": "[story](https://tracker.yandex.ru" & $story & "/)",
-                      "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $id,
+                      "issue": *.issue,
+                      "issue_link": "https://tracker.yandex.ru/" & issue,
+                      "link": "/entities/seaf.change.story/blank?seaf-story-id=" & $id,
                       "title": *.title,
                       "sort": $toMillis(*.moment)
                   }

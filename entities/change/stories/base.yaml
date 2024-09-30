@@ -1,11 +1,11 @@
-# ADR (Architecture Decision Record)
+# Story
 # Основано на https://github.com/joelparkerhenderson/architecture-decision-record
 entities:
-  seaf.change.adr:
-    title: Architecture Decision Record
+  seaf.change.story:
+    title: Story
     schema:
       $defs:
-        seaf.change.adr.problem:
+        seaf.change.story.problem:
           type: string
           title: Описание проблемы
           description: >
@@ -13,68 +13,75 @@ entities:
             не оставляя вопросов о том, почему вы решаете эту проблему сейчас.
             Следуя минималистскому подходу, рассматривайте и документируйте только
             те проблемы, которые требуют решения на различных этапах жизненного цикла.
-        seaf.change.adr.decision:
+        seaf.change.story.decision:
           type: string
           title: Решение
           description: >
             Четко определите архитектурное решение.
-        seaf.change.adr.requirements.item:
+        seaf.change.story.requirements.item:
           title: Требование
           description: >
             Укажите требование, которое удовлетворяет решение
           $ref: "#/$rels/seaf.change.requirements.requirement"
-        seaf.change.adr.requirements:
+        seaf.change.story.requirements:
           title: Требования
           description: >
             Перечислите требования, которые должно удовлетворить архитектурное решение
           type: array
           minItems: 1
           items:
-            $ref: "#/$defs/seaf.change.adr.requirements.item"
+            $ref: "#/$defs/seaf.change.story.requirements.item"
 
-        seaf.change.adr.old_reqs.item:
+        seaf.change.story.old_reqs.item:
           title: Устаревшее требование
           description: >
             Укажите требование, которое удовлетворяет решение
           $ref: "#/$rels/seaf.change.requirements.requirement"
-        seaf.change.adr.old_reqs:
+        seaf.change.story.old_reqs:
           title: Требования
           description: >
             Перечислите требования, которые удалены, отложены или перенесены в рамках текущей задачи.
           type: array
           minItems: 0
           items:
-            $ref: "#/$defs/seaf.change.adr.old_reqs.item"
+            $ref: "#/$defs/seaf.change.story.old_reqs.item"
 
-        seaf.change.adr.deciders.item:
+        seaf.change.story.deciders.item:
           title: Принимающий решение
           type: string
           $ref: "#/$rels/authors.author"
-        seaf.change.adr.deciders:
+        seaf.change.story.deciders:
           title: Кто принял решение
           description: >
             Укажите всех, кто принимал архитектурное решение.
           type: array
           minItems: 1
           items:
-            $ref: "#/$defs/seaf.change.adr.deciders.item"
-        seaf.change.adr.dependencies.item:
+            $ref: "#/$defs/seaf.change.story.deciders.item"
+        seaf.change.story.release:
+          title: Принимающий решение
+          type: string
+          $ref: "#/$rels/releases.release"
+        seaf.change.story.dependencies.item:
           title: Зависимость от другого решения
-          $ref: "#/$rels/seaf.change.adr.adr"
-        seaf.change.adr.dependencies:
+          $ref: "#/$rels/seaf.change.story.story"
+        seaf.change.story.dependencies:
           title: Зависимости от других решений
           description: >
             Укажите от каких решений зависит данное
           type: array
           minItems: 1
           items:
-            $ref: "#/$defs/seaf.change.adr.dependencies.item"
-        seaf.change.adr:
+            $ref: "#/$defs/seaf.change.story.dependencies.item"
+        seaf.change.story:
           type: object
           properties:
             title:
               type: string
               title: Название
+            issue:
+              type: string
+              title: Yandex Tracker Issue
             moment:
               type: string
               title: Дата создания
@@ -89,48 +96,82 @@ entities:
                 - Review
                 - Done
                 - Cancelled
+            release:
+              $ref: "#/$defs/seaf.change.story.release"
             problem:
-              $ref: "#/$defs/seaf.change.adr.problem"
+              $ref: "#/$defs/seaf.change.story.problem"
             deciders:
-              $ref: "#/$defs/seaf.change.adr.deciders"
+              $ref: "#/$defs/seaf.change.story.deciders"
             decision:
-              $ref: "#/$defs/seaf.change.adr.decision"
+              $ref: "#/$defs/seaf.change.story.decision"
             requirements:
-              $ref: "#/$defs/seaf.change.adr.requirements"
+              $ref: "#/$defs/seaf.change.story.requirements"
             old_reqs:
-              $ref: "#/$defs/seaf.change.adr.old_reqs"
+              $ref: "#/$defs/seaf.change.story.old_reqs"
             dependencies:
-              $ref: "#/$defs/seaf.change.adr.dependencies"
+              $ref: "#/$defs/seaf.change.story.dependencies"
+            changelog:
+              title: Changelog
+              type: object
+              patternProperties:
+                "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
+                  type: object
+                  properties:
+                    revision:
+                      type: string
+                      title: Revision
+                    requirement:
+                      type: string
+                      title: Requirement
+                      $ref: "#/$rels/seaf.change.requirements.requirement"
+                    change_type:
+                      type: string
+                      enum:
+                        - Added
+                        - Removed
+                        - Modified
+                    date:
+                      type: string
+                      title: Date
+                      pattern: ^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$
+                    comment:
+                      type: string
+                      title: Comment
+                  required:
+                    - revision
+                    - date
+                    - comment
           required:
             - title
             - moment
             - problem
             - decision
             - status
+            - release
             - requirements
-            - story
+            - issue
       type: object
       patternProperties:
         "^[a-z0-9_\\$][a-z0-9_\\$]*(\\.[a-z0-9_\\$][a-z0-9_\\$]*)*$":
-          $ref: "#/$defs/seaf.change.adr"
+          $ref: "#/$defs/seaf.change.story"
     objects:
-      adr:
+      story:
         route: "/"
-        title: ADR
+        title: Story
     menu: >
       (       
           $append(
               [{
                   "location": "Changes/Stories",
-                  "link": "/entities/seaf.change.adr/list"
+                  "link": "/entities/seaf.change.story/list"
               }],
               $seaf_menu_location_by_id(
-                    $."seaf.change.adr",
+                    $."seaf.change.story",
                     "",
                     "Changes/Stories/",
                     function($location, $item, $itemId, $collection){{
                         "location": $location,
-                        "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $itemId
+                        "link": "/entities/seaf.change.story/blank?seaf-story-id=" & $itemId
                     }}
             )
         );

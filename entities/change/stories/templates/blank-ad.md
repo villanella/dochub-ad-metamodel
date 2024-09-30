@@ -3,11 +3,11 @@ id: **{{id}}**
 
 status: **{{status}}**
 
-issue: [{{story}}](https://tracker.yandex.ru/{{story}})
+issue: [{{issue}}](https://tracker.yandex.ru/{{issue}})
 
-revision: {{revision}}
+revision: **{{revision}}**
 
-release: {{release}}
+release: **{{release}}**
 
 
 # Problem
@@ -43,5 +43,5 @@ release: {{release}}
 | Revision | Requirement | Type of change | Date | Comment |
 |----------|:------------| -----------|------|----|
 {{#changelog}}
-| {{title}} | {{condition}} | {{change}} | {{date}} | {{comment}} |
+| {{revision}} | {{requirement}} | {{change_type}} | {{date}} | {{comment}} |
 {{/changelog}}

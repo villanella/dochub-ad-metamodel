@@ -1,27 +1,28 @@
 # Бланк архитектурного решения
 entities:
-  seaf.change.adr:
+  seaf.change.story:
     presentations:
       blank:
-        title: Карточка ADR
+        title: Карточка Story
         params:
           type: object
           properties:
-            seaf-adr-id:
-              title: Идентификатор ADR
+            seaf-story-id:
+              title: Идентификатор Story
               type: string
           required:
-            - seaf-adr-id
+            - seaf-story-id
         type: markdown
         template: templates/blank-ad.md
         source: >
           (
-              $id := $params."seaf-adr-id";
+              $id := $params."seaf-story-id";
               $requirements := $."seaf.change.requirements";
-              $adr := $."seaf.change.adr";
-              $data := $lookup($."seaf.change.adr", $id);
+              $story := $."seaf.change.story";
+              $data := $lookup($."seaf.change.story", $id);
               $merge([$data, {
                   "id": $id,
+                  "issue": $issue,
                   "requirements": $data.requirements.(
                       $title := $lookup($requirements, $).title;
                       {
@@ -37,19 +38,19 @@ entities:
                       } 
                   ),
                   "dependencies": $data.dependencies.(
-                      $title := $lookup($adr, $).title;
+                      $title := $lookup($story, $).title;
                       {
                           "title": $title ? $title : $,
-                          "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $
+                          "link": "/entities/seaf.change.story/blank?seaf-story-id=" & $
                       } 
                   ),
-                  "blocked": $adr.$spread().(
+                  "blocked": $story.$spread().(
                       $depId := $keys()[0];
                       *.dependencies[$=$id] ? (
-                        $title := $lookup($adr, $depId).title;
+                        $title := $lookup($story, $depId).title;
                         {
                             "title": $title ? $title : $,
-                            "link": "/entities/seaf.change.adr/blank?seaf-adr-id=" & $depId
+                            "link": "/entities/seaf.change.story/blank?seaf-story-id=" & $depId
                         } 
                       ) 
                   )

@@ -38,7 +38,8 @@ entities:
           (
               $MANIFEST := $;
               $ASPECT := $params.aspect;
-              { "tags": tags.$spread().(
+              { "aspect_id": $ASPECT, 
+                "tags": tags.$spread().(
                   $KEY := $keys()[0];
                   $.*.aspects[$ = $ASPECT] ? [(
                       $TAG := $lookup($MANIFEST.tags, $KEY);
