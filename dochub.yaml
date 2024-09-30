@@ -17,4 +17,5 @@ $package:
 imports:
   - _metamodel_\packages.yaml
   - entities/root.yaml
-  #- tests/tests.yaml - включить с собственными тестовыми данными
+  #- matrices/root.yaml
+  #- tests/tests.yaml #- включить с собственными тестовыми данными
