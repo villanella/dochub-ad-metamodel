@@ -9,7 +9,7 @@ $package:
     # Описание
     description: Arenadata DocHub Metamodel
     # Версия
-    version: 0.0.2
+    version: 0.0.3
     # Зависимости от других пакетов - включить в целевом проекте. Устанавливаются в обратном порядке
     #dependencies:
     #  ceaf-changes-en: ">=1.0.2"
@@ -18,4 +18,5 @@ imports:
   #- _metamodel_\packages.yaml  # включать из корня в целевом проекте
   - entities/root.yaml
   #- matrices-examples/root.yaml
-  #- tests/tests.yaml           # включить с собственными тестовыми данными
+  - tests/tests.yaml           # включить с собственными тестовыми данными
+  - tests/tests2.yaml           # включить с собственными тестовыми данными
