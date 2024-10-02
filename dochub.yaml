@@ -15,7 +15,7 @@ $package:
     #  ceaf-changes-en: ">=1.0.2"
     #  ceaf-changes: ">=1.2.6"
 imports:
-  #- _metamodel_\packages.yaml  # включать из корня в целевом проекте
+  - _metamodel_\packages.yaml  # включать из корня в целевом проекте
   - entities/root.yaml
   #- matrices-examples/root.yaml
   #- tests/tests.yaml           # включить с собственными тестовыми данными
